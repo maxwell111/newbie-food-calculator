@@ -1,0 +1,26 @@
+@import '../abstracts/variables';
+
+body * {
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+body {
+    font-size: $body-font;
+    line-height: $body-line-height;
+    color: $body-font-color;
+}
+
+a {
+    text-decoration: none;
+    &:hover, &:focus {
+        text-decoration: none;
+    }
+}
+
+button {
+    outline: none;
+    border: none;
+}

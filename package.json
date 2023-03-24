@@ -1,0 +1,34 @@
+{
+  "name": "newbie-food-calculator",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint:styles": "stylelint src/**/*.scss --fix",
+    "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
+  },
+  "dependencies": {
+    "postcss-scss": "^4.0.6",
+    "vue": "^3.2.45"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "autoprefixer": "^10.4.13",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-vue": "^9.10.0",
+    "postcss": "^8.4.21",
+    "prettier": "2.8.7",
+    "sass": "^1.59.3",
+    "stylelint": "^15.3.0",
+    "stylelint-config-html": "^1.1.0",
+    "stylelint-config-recommended": "^11.0.0",
+    "stylelint-config-recommended-vue": "^1.4.0",
+    "vite": "^4.1.0",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-stylelint": "^4.3.0"
+  }
+}

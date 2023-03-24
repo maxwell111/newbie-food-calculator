@@ -1,0 +1,60 @@
+@import '../abstracts/variables';
+@import '../abstracts/breakpoints';
+@import '../abstracts/mixins';
+
+.calculate-sidebar {
+    display: block;
+    top: 0;
+    right: 0;
+    width: 100%;
+    position: fixed;
+    height: 100vh;
+    padding: 1rem 0.5rem;
+    background: $white;
+    box-shadow: 0 2px 10px $sidebarBoxShadowColor;
+    @include respond-to('md') {
+        width: 280px;
+    }
+}
+
+.calculate-sidebar-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}
+
+.calculate-sidebar-list {
+    margin: 1rem 0 2rem;
+}
+
+.calculate-sidebar-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0 0.5rem 0.5rem;
+    margin-bottom: 0.3rem;
+    color: $white;
+    background-color: $brandColor3;
+    border-radius: $border-radius;
+}
+
+.calculate-sidebar-remove {
+    margin-left: auto;
+}
+
+.calculate-sidebar-total {
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 2rem;
+    .sidebar-total-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        color: $black;
+        &:not(:last-child) {
+            border-bottom: 1px solid $listItemBorderColor;
+        }
+    }
+}

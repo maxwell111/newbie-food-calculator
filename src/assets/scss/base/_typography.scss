@@ -1,0 +1,62 @@
+@import '../abstracts/variables';
+@import '../abstracts/breakpoints';
+@import '../abstracts/mixins';
+
+// Fonts
+body, body * {
+    font-family: $font;
+}
+
+// Headings
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: $bold;
+    letter-spacing: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    font-size: $h1-mobile;
+    line-height: $line-height-lg;
+    @include respond-to('lg') {
+        font-size: $h1-desktop;
+    }
+}
+
+h2 {
+    font-size: $h2-mobile;
+    line-height: $line-height-lg;
+    @include respond-to('lg') {
+        font-size: $h2-desktop;
+    }
+}
+
+h3 {
+    font-size: $h3-mobile;
+    line-height: $line-height-md;
+    @include respond-to('lg') {
+        font-size: $h3-desktop;
+    }
+}
+
+h4 {
+    font-size: $h4-desktop;
+    line-height: $line-height-lg;
+}
+
+h5 {
+    font-size: $h5-desktop;
+    line-height: $line-height-sm;
+}
+
+h6 {
+    font-size: $h6-desktop;
+    line-height: $line-height-sm;
+}

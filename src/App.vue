@@ -1,0 +1,92 @@
+<script>
+import { searchFoodItems } from "./api";
+import InfoModal from "./components/infoModal.vue";
+import CalculateSidebar from "./components/calculateSidebar.vue";
+import SearchForm from "./components/searchFoodForm.vue";
+import SearchResults from "./components/searchFoodResults.vue";
+
+export default {
+  name: "App",
+  components: {
+    InfoModal,
+    CalculateSidebar,
+    SearchForm,
+    SearchResults,
+  },
+  data() {
+    return {
+      foodSearchData: [],
+      foodCalculateData: [],
+
+      modalInfoData: null,
+
+      showNutritionInfoModal: false,
+      showNutritionSidebar: false,
+    };
+  },
+  computed: {
+    isSidebarVisible() {
+      return this.showNutritionSidebar && this.foodCalculateData.length;
+    },
+  },
+  methods: {
+    async searchFood(query) {
+      const queryTrimmed = query.trim();
+      const data = await searchFoodItems(queryTrimmed);
+      this.foodSearchData = data;
+    },
+    openModal(f) {
+      this.showNutritionInfoModal = !this.showNutritionInfoModal;
+      this.modalInfoData = f;
+    },
+    closeModal() {
+      this.showNutritionInfoModal = !this.showNutritionInfoModal;
+      this.modalInfoData = null;
+    },
+    addFood(f) {
+      const { foodItem, selected_portion: portion } = f;
+      const isItemExist = this.foodCalculateData.some(
+        (item) => item.id === foodItem.id
+      );
+      if (isItemExist) {
+        return;
+      }
+      foodItem.portion = portion;
+      this.foodCalculateData.push(foodItem);
+      this.showNutritionSidebar = true;
+    },
+    removeFood(foodItemId) {
+      this.foodCalculateData = this.foodCalculateData.filter(
+        (i) => i.id !== foodItemId
+      );
+    },
+  },
+};
+</script>
+
+<template>
+  <div class="wrap" :class="{ 'is-sidebar': isSidebarVisible }">
+    <div class="calculator">
+      <div class="container">
+        <h1 class="calculator-title">Food calorie calculator</h1>
+        <search-form @search-food-event="searchFood" />
+        <search-results
+          :food-search-data="foodSearchData"
+          @add-food-event="addFood"
+          @open-modal-event="openModal"
+        />
+      </div>
+    </div>
+    <calculate-sidebar
+      v-if="isSidebarVisible"
+      :calculated-data="foodCalculateData"
+      @close-sidebar-event="showNutritionSidebar = !showNutritionSidebar"
+      @remove-food-event="removeFood"
+    />
+    <info-modal
+      v-if="showNutritionInfoModal"
+      :modal-info-data="modalInfoData"
+      @close-modal-event="closeModal"
+    />
+  </div>
+</template>

@@ -1,0 +1,43 @@
+@import '../abstracts/_mixins';
+@import '../abstracts/_breakpoints';
+
+
+//Wrap
+.wrap {
+    position: relative;
+    overflow-x: hidden;
+}
+
+// Container
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 15px;
+    @include respond-to('sm') {
+        max-width: 720px;
+    }
+    @include respond-to('md') {
+        max-width: 992px;
+    }
+    @include respond-to('lg') {
+        max-width: 1140px;
+        padding: 0 20px;
+    }
+    @include respond-to('xl') {
+        max-width: 1320px;
+    }
+}
+
+// Text capitalize
+.capitalize {
+    text-transform: capitalize;
+}
+
+// Sidebar visible
+.is-sidebar {
+    @include respond-to('md') {
+        margin-right: 280px;
+    }
+}

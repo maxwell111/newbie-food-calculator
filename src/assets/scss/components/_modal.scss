@@ -1,0 +1,31 @@
+.modal {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.5rem;
+    background-color: rgba($black , 0.5);
+}
+
+.modal-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 56rem;
+    border-radius: $border-radius;
+    background: $white;
+    padding: 2rem;
+}
+
+.modal-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    @include respond-to('sm') {
+        top: 1rem;
+        right: 1rem;
+    }
+}

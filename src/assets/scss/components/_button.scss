@@ -1,0 +1,64 @@
+.button {
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 10px 20px;
+    border-radius: $border-radius;
+    font-weight: $semibold;
+    transition: $transition;
+    &:hover, &:focus {
+        text-decoration: none;
+    }
+}
+
+.button-colored {
+    color: $white;
+    background: $brandColor1;
+    &:hover, &:focus {
+        background: $brandColor2;
+    }
+}
+
+.button-colored-invert {
+    color: $white;
+    background: $brandColor2;
+    &:hover, &:focus {
+        background: $brandColor1;
+    }
+}
+
+.button-bordered {
+    color: $brandColor1;
+    background: transparent;
+    border: 1px solid $brandColor1;
+    &:hover, &:focus {
+        color: $brandColor2;
+        border: 1px solid $brandColor2;
+    }
+}
+
+.button-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    background-color: $buttonCloseBgColor;
+    &:hover {
+        background-color: rgba($buttonCloseBgColor , 0.6);
+    }
+    svg {
+        width: 0.9rem;
+        height: 0.9rem;
+    }
+}
+
+.button-remove {
+    padding: 0.375rem;
+    background: transparent;
+    svg {
+        fill: $white;
+    }
+}

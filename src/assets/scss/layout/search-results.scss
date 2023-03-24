@@ -1,0 +1,137 @@
+@import '../abstracts/variables';
+@import '../abstracts/breakpoints';
+@import '../abstracts/mixins';
+
+.search-results {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-results-item {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 1rem;
+    border: 1px solid $searchResultsBorderColor;
+    border-radius: $border-radius;
+
+    &:not(:last-child) {
+        margin-bottom: 0.825rem;
+    }
+
+    .results-item-content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 1rem;
+
+        @include respond-to('sm') {
+            flex: 1;
+            flex-direction: row;
+            margin-bottom: 0;
+            align-items: center;
+        }
+    }
+
+    .results-item-actions {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        @include respond-to('sm') {
+            flex-direction: row;
+            width: auto;
+        }
+    }
+
+    .results-item-options {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-top: 1rem;
+        border-top: 1px solid $searchResultsAddBlockBorder;
+        padding: 1rem 0 0;
+
+        @include respond-to('sm') {
+            flex-direction: row;
+            align-items: stretch;
+        }
+    }
+
+    .results-item-info {
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+
+        h3 {
+            flex: 1;
+
+            @include respond-to('sm') {
+                flex: initial;
+            }
+        }
+
+        @include respond-to('sm') {
+            flex: 1;
+            margin: 0 20px 0 0;
+        }
+    }
+
+    .results-item-button {
+        &:not(:last-child) {
+            margin-bottom: 0.3rem;
+
+            @include respond-to('sm') {
+                margin-bottom: 0;
+                margin-right: 0.3rem;
+            }
+        }
+    }
+
+    .item-info-portion {
+        margin-left: 10px;
+
+        @include respond-to('sm') {
+            margin-left: 24px;
+            display: flex;
+            align-items: center;
+        }
+
+        svg {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            margin-right: 5px;
+            fill: $seachResultsPortionColor;
+        }
+
+        span {
+            color: $seachResultsPortionColor;
+        }
+    }
+
+    .item-options-measure {
+        position: absolute;
+        right: 0;
+        display: flex;
+        min-width: 44px;
+        height: 44px;
+        align-items: center;
+        justify-content: center;
+        background: #ddd;
+        border-radius: 4px;
+
+        @include respond-to('sm') {
+            position: relative;
+            right: auto;
+            margin: 0 5px;
+        }
+    }
+
+    .item-options-button {
+        margin-top: 0.5rem;
+
+        @include respond-to('sm') {
+            margin-top: 0;
+        }
+    }
+}
