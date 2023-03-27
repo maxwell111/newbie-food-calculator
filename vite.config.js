@@ -13,6 +13,7 @@ export default defineConfig({
       cache: false,
     }),
   ],
+  base: "/newbie-food-calculator/",
   server: {
     port: 8000,
   },
