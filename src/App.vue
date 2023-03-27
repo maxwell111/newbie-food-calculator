@@ -1,9 +1,10 @@
 <script>
-import { searchFoodItems } from "./api";
+import { searchFoodItems } from "./services/api";
 import InfoModal from "./components/infoModal.vue";
 import CalculateSidebar from "./components/calculateSidebar.vue";
 import SearchForm from "./components/searchFoodForm.vue";
 import SearchResults from "./components/searchFoodResults.vue";
+import NoResults from "./components/noResults.vue";
 
 export default {
   name: "App",
@@ -12,6 +13,7 @@ export default {
     CalculateSidebar,
     SearchForm,
     SearchResults,
+    NoResults,
   },
   data() {
     return {
@@ -22,6 +24,7 @@ export default {
 
       showNutritionInfoModal: false,
       showNutritionSidebar: false,
+      showNoResultsBlock: false,
     };
   },
   computed: {
@@ -33,7 +36,13 @@ export default {
     async searchFood(query) {
       const queryTrimmed = query.trim();
       const data = await searchFoodItems(queryTrimmed);
+      if (!data.length) {
+        this.showNoResultsBlock = true;
+        this.foodSearchData = [];
+        return;
+      }
       this.foodSearchData = data;
+      this.showNoResultsBlock = false;
     },
     openModal(f) {
       this.showNutritionInfoModal = !this.showNutritionInfoModal;
@@ -49,6 +58,11 @@ export default {
         (item) => item.id === foodItem.id
       );
       if (isItemExist) {
+        /* 
+          When we already have item in sidebar, there is no need to add it again.
+          Just open sidebar with already added items.
+         */
+        this.showNutritionSidebar = true;
         return;
       }
       foodItem.portion = portion;
@@ -75,6 +89,7 @@ export default {
           @add-food-event="addFood"
           @open-modal-event="openModal"
         />
+        <NoResults v-if="showNoResultsBlock" />
       </div>
     </div>
     <calculate-sidebar
