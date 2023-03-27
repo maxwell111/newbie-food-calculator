@@ -46,6 +46,7 @@
     height: 1.25rem;
     padding: 0;
     background-color: $buttonCloseBgColor;
+    box-shadow: 0 2px 3px rgba($black, 0.4);
     &:hover {
         background-color: rgba($buttonCloseBgColor , 0.6);
     }
