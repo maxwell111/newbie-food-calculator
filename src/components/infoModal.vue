@@ -9,7 +9,9 @@ export default {
     modalInfoData: {
       type: Object,
       required: false,
-      default: {},
+      default() {
+        return {};
+      },
     },
   },
   emits: ["closeModalEvent"],

@@ -4,7 +4,9 @@ export default {
     foodSearchData: {
       type: Array,
       required: false,
-      default: [],
+      default() {
+        return [];
+      },
     },
   },
   emits: ["addFoodEvent", "openModalEvent"],
@@ -16,7 +18,9 @@ export default {
   methods: {
     addFoodEvent(foodItem, index) {
       // TODO: find another solution how to show additionalOptions block
-      if (foodItem.hasOwnProperty("showAdditionalOptions")) {
+      if (
+        Object.prototype.hasOwnProperty.call(foodItem, "showAdditionalOptions")
+      ) {
         delete foodItem.showAdditionalOptions;
       }
       this.$emit("addFoodEvent", {

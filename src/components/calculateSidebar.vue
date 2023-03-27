@@ -11,7 +11,9 @@ export default {
     calculatedData: {
       type: Array,
       required: false,
-      default: [],
+      default() {
+        return [];
+      },
     },
   },
   emits: ["closeSidebarEvent", "removeFoodEvent"],
