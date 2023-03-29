@@ -27,9 +27,7 @@ export default {
   <div class="info-modal modal">
     <div class="info-modal-wrap modal-wrap">
       <close-button class="info-modal-close modal-close" @click="closeModal" />
-      <h2 class="info-modal-title">
-        Nutrition facts - {{ modalInfoData.name }}
-      </h2>
+      <h2 class="info-modal-title">Calorie info - {{ modalInfoData.name }}</h2>
       <div class="info-modal-content modal-content">
         <div class="info-modal-image">
           <img :src="modalInfoData.image" :alt="modalInfoData.name" />
