@@ -1,4 +1,8 @@
-<script></script>
+<script>
+export default {
+  name: "NoResults",
+};
+</script>
 <template>
   <div class="no-results">
     <h2 class="no-results-title">

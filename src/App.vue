@@ -1,11 +1,11 @@
 <script>
 import { searchFoodItems } from "./services/api";
+import { mapGetters, mapMutations } from "vuex";
 import InfoModal from "./components/infoModal.vue";
 import CalculateSidebar from "./components/calculateSidebar.vue";
 import SearchForm from "./components/searchFoodForm.vue";
 import SearchResults from "./components/searchFoodResults.vue";
 import NoResults from "./components/noResults.vue";
-import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "App",
@@ -32,9 +32,7 @@ export default {
     isSidebarVisible() {
       return this.showNutritionSidebar && this.savedFoodItems.length;
     },
-    ...mapGetters({
-      savedFoodItems: "savedFoodItems",
-    }),
+    ...mapGetters(["savedFoodItems"]),
   },
   created() {
     if (this.savedFoodItems.length) {
@@ -46,6 +44,10 @@ export default {
       const queryTrimmed = query.trim();
       const data = await searchFoodItems(queryTrimmed);
       if (!data.length) {
+        /*
+          Show no-results block when we don't receive data. 
+          And empty our data array.
+        */
         this.showNoResultsBlock = true;
         this.foodSearchData = [];
         return;
