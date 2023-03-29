@@ -1,25 +1,21 @@
 <script>
 import CloseButton from "./buttons/closeButton.vue";
 import RemoveButton from "./buttons/removeButton.vue";
+import { mapGetters } from "vuex";
+
 export default {
   name: "NutritionCalculateSidebar",
   components: {
     CloseButton,
     RemoveButton,
   },
-  props: {
-    calculatedData: {
-      type: Array,
-      required: false,
-      default() {
-        return [];
-      },
-    },
-  },
   emits: ["closeSidebarEvent", "removeFoodEvent"],
   computed: {
+    ...mapGetters({
+      savedFoodItems: "savedFoodItems",
+    }),
     totalCalories() {
-      return this.calculatedData.reduce((sum, item) => {
+      return this.savedFoodItems.reduce((sum, item) => {
         const {
           nutrition_data: { calories },
           serving_size: { amount },
@@ -29,7 +25,7 @@ export default {
       }, 0);
     },
     totalFat() {
-      return this.calculatedData.reduce((sum, item) => {
+      return this.savedFoodItems.reduce((sum, item) => {
         const {
           nutrition_data: { fat },
           serving_size: { amount },
@@ -39,7 +35,7 @@ export default {
       }, 0);
     },
     totalSugar() {
-      return this.calculatedData.reduce((sum, item) => {
+      return this.savedFoodItems.reduce((sum, item) => {
         const {
           nutrition_data: { sugar },
           serving_size: { amount },
@@ -49,7 +45,7 @@ export default {
       }, 0);
     },
     totalProtein() {
-      return this.calculatedData.reduce((sum, item) => {
+      return this.savedFoodItems.reduce((sum, item) => {
         const {
           nutrition_data: { protein },
           serving_size: { amount },
@@ -59,7 +55,7 @@ export default {
       }, 0);
     },
     totalCarbs() {
-      return this.calculatedData.reduce((sum, item) => {
+      return this.savedFoodItems.reduce((sum, item) => {
         const {
           nutrition_data: { carbs },
           serving_size: { amount },
@@ -99,7 +95,7 @@ export default {
   <div class="nutrition-calculate-sidebar calculate-sidebar">
     <div class="calculate-sidebar-list">
       <div
-        v-for="foodItem in calculatedData"
+        v-for="foodItem in savedFoodItems"
         :key="foodItem.id"
         class="calculate-sidebar-item"
       >

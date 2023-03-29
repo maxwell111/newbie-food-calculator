@@ -1,5 +1,6 @@
 <script>
 import { searchFoodItems } from "./services/api";
+import { mapGetters, mapMutations } from "vuex";
 import InfoModal from "./components/infoModal.vue";
 import CalculateSidebar from "./components/calculateSidebar.vue";
 import SearchForm from "./components/searchFoodForm.vue";
@@ -29,14 +30,24 @@ export default {
   },
   computed: {
     isSidebarVisible() {
-      return this.showNutritionSidebar && this.foodCalculateData.length;
+      return this.showNutritionSidebar && this.savedFoodItems.length;
     },
+    ...mapGetters(["savedFoodItems"]),
+  },
+  created() {
+    if (this.savedFoodItems.length) {
+      this.showNutritionSidebar = true;
+    }
   },
   methods: {
     async searchFood(query) {
       const queryTrimmed = query.trim();
       const data = await searchFoodItems(queryTrimmed);
       if (!data.length) {
+        /*
+          Show no-results block when we don't receive data. 
+          And empty our data array.
+        */
         this.showNoResultsBlock = true;
         this.foodSearchData = [];
         return;
@@ -54,11 +65,11 @@ export default {
     },
     addFood(f) {
       const { foodItem, selected_portion: portion } = f;
-      const isItemExist = this.foodCalculateData.some(
+      const isItemExist = this.savedFoodItems.some(
         (item) => item.id === foodItem.id
       );
       if (isItemExist) {
-        /* 
+        /*
           When we already have item in sidebar, there is no need to add it again.
           Just open sidebar with already added items.
          */
@@ -66,14 +77,13 @@ export default {
         return;
       }
       foodItem.portion = portion;
-      this.foodCalculateData.push(foodItem);
+      this.ADD_FOOD_ITEM(foodItem);
       this.showNutritionSidebar = true;
     },
     removeFood(foodItemId) {
-      this.foodCalculateData = this.foodCalculateData.filter(
-        (i) => i.id !== foodItemId
-      );
+      this.REMOVE_FOOD_ITEM(foodItemId);
     },
+    ...mapMutations(["ADD_FOOD_ITEM", "REMOVE_FOOD_ITEM"]),
   },
 };
 </script>
@@ -89,12 +99,11 @@ export default {
           @add-food-event="addFood"
           @open-modal-event="openModal"
         />
-        <NoResults v-if="showNoResultsBlock" />
+        <no-results v-if="showNoResultsBlock" />
       </div>
     </div>
     <calculate-sidebar
       v-if="isSidebarVisible"
-      :calculated-data="foodCalculateData"
       @close-sidebar-event="showNutritionSidebar = !showNutritionSidebar"
       @remove-food-event="removeFood"
     />

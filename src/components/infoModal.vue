@@ -1,7 +1,7 @@
 <script>
 import CloseButton from "./buttons/closeButton.vue";
 export default {
-  name: "NutritionInfoModal",
+  name: "InfoModal",
   components: {
     CloseButton,
   },
