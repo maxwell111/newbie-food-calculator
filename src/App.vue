@@ -1,5 +1,6 @@
 <script>
 import { searchFoodItems } from "./services/api";
+import { setURLSearchParams } from "./services/urlParams";
 import { mapGetters, mapMutations } from "vuex";
 import InfoModal from "./components/infoModal.vue";
 import CalculateSidebar from "./components/calculateSidebar.vue";
@@ -38,6 +39,12 @@ export default {
     if (this.savedFoodItems.length) {
       this.showNutritionSidebar = true;
     }
+    const urlData = Object.fromEntries(
+      new URL(window.location).searchParams.entries()
+    );
+    if (urlData) {
+      this.searchFood(...Object.values(urlData));
+    }
   },
   methods: {
     async searchFood(query) {
@@ -45,13 +52,14 @@ export default {
       const data = await searchFoodItems(queryTrimmed);
       if (!data.length) {
         /*
-          Show no-results block when we don't receive data. 
+          Show no-results block when we don't receive data.
           And empty our data array.
         */
         this.showNoResultsBlock = true;
         this.foodSearchData = [];
         return;
       }
+      setURLSearchParams(query);
       this.foodSearchData = data;
       this.showNoResultsBlock = false;
     },
