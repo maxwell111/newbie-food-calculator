@@ -1,6 +1,6 @@
 # newbie-food-calculator
 
-> Simple Food Calculator with Vite, Vue3
+> Simple Food Calculator with Vite, Vue3, Vuex
 
 ```bash
 # install dependencies
