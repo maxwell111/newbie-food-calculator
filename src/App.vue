@@ -1,6 +1,6 @@
 <script>
 import { searchFoodItems } from "./services/api";
-import { setURLSearchParams } from "./services/urlParams";
+import { addUrlParam, removeUrlParam } from "./services/urlParams";
 import { mapGetters, mapMutations } from "vuex";
 import InfoModal from "./components/infoModal.vue";
 import CalculateSidebar from "./components/calculateSidebar.vue";
@@ -22,6 +22,8 @@ export default {
       foodSearchData: [],
       foodCalculateData: [],
 
+      foodUrlParam: null,
+
       modalInfoData: null,
 
       showNutritionInfoModal: false,
@@ -39,11 +41,16 @@ export default {
     if (this.savedFoodItems.length) {
       this.showNutritionSidebar = true;
     }
+    /*
+      Checking url param for product
+      Then load foodItems if param not empty.
+    */
     const urlData = Object.fromEntries(
       new URL(window.location).searchParams.entries()
     );
-    if (urlData) {
-      this.searchFood(...Object.values(urlData));
+    this.foodUrlParam = Object.values(urlData).join();
+    if (Object.keys(urlData).length) {
+      this.searchFood(this.foodUrlParam);
     }
   },
   methods: {
@@ -56,10 +63,11 @@ export default {
           And empty our data array.
         */
         this.showNoResultsBlock = true;
+        removeUrlParam();
         this.foodSearchData = [];
         return;
       }
-      setURLSearchParams(query);
+      addUrlParam(query);
       this.foodSearchData = data;
       this.showNoResultsBlock = false;
     },
